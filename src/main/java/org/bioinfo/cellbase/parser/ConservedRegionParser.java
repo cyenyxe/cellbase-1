@@ -1,7 +1,6 @@
 package org.bioinfo.cellbase.parser;
 
 import com.google.gson.Gson;
-import org.bioinfo.cellbase.lib.common.ConservedRegion;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -11,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
+import org.bioinfo.cellbase.lib.common.regulatory.ConservedRegion;
 
 public class ConservedRegionParser {
 
@@ -81,7 +81,8 @@ public class ConservedRegionParser {
                 chromosome = attributes.get("chrom").replace("chr", "");
 
                 values = new ArrayList<>();
-                conservedRegion = new ConservedRegion(chromosome, start, 0, conservedType, values);
+                // TODO
+//                conservedRegion = new ConservedRegion(chromosome, start, 0, conservedType, start/CHUNKSIZE, values);
                 System.out.println(start);
 
             } else {

@@ -1,33 +1,16 @@
 package org.bioinfo.cellbase.parser;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import com.google.gson.Gson;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.bioinfo.cellbase.lib.common.variation.TranscriptVariation;
-import org.bioinfo.cellbase.lib.common.variation.Variation;
-import org.bioinfo.cellbase.lib.common.variation.Xref;
-
-import com.google.gson.Gson;
+import java.sql.*;
+import java.util.*;
+import org.bioinfo.cellbase.common.variation.TranscriptVariation;
+import org.bioinfo.cellbase.common.variation.Variation;
+import org.bioinfo.cellbase.common.variation.Xref;
 
 public class VariationParser {
 

@@ -1,20 +1,11 @@
 package org.bioinfo.cellbase.parser;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.bioinfo.cellbase.lib.common.GenericFeature;
-import org.bioinfo.cellbase.lib.common.GenericFeatureChunk;
-import org.junit.Test;
-
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
-import java.util.*;
+import org.junit.Test;
 
 public class RegulatoryParserTest {
 

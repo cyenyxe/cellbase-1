@@ -1,30 +1,19 @@
 package org.bioinfo.cellbase.parser;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.GZIPInputStream;
-
+import org.bioinfo.cellbase.common.regulatory.MiRNAGene;
+import org.bioinfo.cellbase.common.regulatory.MiRNAMature;
+import org.bioinfo.cellbase.common.regulatory.TranscriptTfbs;
 import org.bioinfo.cellbase.lib.common.core.Exon;
 import org.bioinfo.cellbase.lib.common.core.Gene;
-import org.bioinfo.cellbase.lib.common.core.MiRNAGene;
-import org.bioinfo.cellbase.lib.common.core.MiRNAGene.MiRNAMature;
 import org.bioinfo.cellbase.lib.common.core.Transcript;
-import org.bioinfo.cellbase.lib.common.core.TranscriptTfbs;
 import org.bioinfo.cellbase.lib.common.core.Xref;
 import org.bioinfo.commons.io.TextFileWriter;
 import org.bioinfo.commons.io.utils.FileUtils;
@@ -32,9 +21,6 @@ import org.bioinfo.commons.io.utils.IOUtils;
 import org.bioinfo.formats.core.feature.Gtf;
 import org.bioinfo.formats.core.feature.io.GtfReader;
 import org.bioinfo.formats.exception.FileFormatException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class GeneParser {
 
@@ -147,9 +133,12 @@ public class GeneParser {
 					first = true;
 				}
 
+//				gene = new Gene(geneId, gtf.getAttributes().get("gene_name"), gtf.getAttributes().get("gene_biotype"),
+//						"KNOWN", gtf.getSequenceName().replaceFirst("chr", ""), gtf.getStart(), gtf.getEnd(),
+//						gtf.getStrand(), "Ensembl", geneDescriptionMap.get(geneId), new ArrayList<Transcript>(), mirnaGeneMap.get(geneId));
 				gene = new Gene(geneId, gtf.getAttributes().get("gene_name"), gtf.getAttributes().get("gene_biotype"),
 						"KNOWN", gtf.getSequenceName().replaceFirst("chr", ""), gtf.getStart(), gtf.getEnd(),
-						gtf.getStrand(), "Ensembl", geneDescriptionMap.get(geneId), new ArrayList<Transcript>(), mirnaGeneMap.get(geneId));
+						gtf.getStrand(), "Ensembl", geneDescriptionMap.get(geneId), new ArrayList<Transcript>());
 				// genes.add(gene);
 
 				// Do not change order!! size()-1 is the index of the gene ID
@@ -158,9 +147,12 @@ public class GeneParser {
 
 			// Check if Transcript exist in the Gene Set of transcripts
 			if (!transcriptDict.containsKey(transcriptId)) {
+//				transcript = new Transcript(transcriptId, gtf.getAttributes().get("transcript_name"), gtf.getSource(),
+//						"KNOWN", gtf.getSequenceName().replaceFirst("chr", ""), gtf.getStart(), gtf.getEnd(),
+//						gtf.getStrand(), 0, 0, 0, 0, 0, "", "", xrefMap.get(transcriptId), new ArrayList<Exon>(), tfbsMap.get(transcriptId));
 				transcript = new Transcript(transcriptId, gtf.getAttributes().get("transcript_name"), gtf.getSource(),
 						"KNOWN", gtf.getSequenceName().replaceFirst("chr", ""), gtf.getStart(), gtf.getEnd(),
-						gtf.getStrand(), 0, 0, 0, 0, 0, "", "", xrefMap.get(transcriptId), new ArrayList<Exon>(), tfbsMap.get(transcriptId));
+						gtf.getStrand(), 0, 0, 0, 0, 0, "", "", xrefMap.get(transcriptId), new ArrayList<Exon>());
 				gene.getTranscripts().add(transcript);
 				// Do not change order!! size()-1 is the index of the transcript
 				// ID
@@ -182,9 +174,12 @@ public class GeneParser {
 					// as starts is inclusive and position begins in 1 we must -1, end is OK.
 					exonSequence = chromSequence.substring(gtf.getStart()-1, gtf.getEnd());
 				}
+//				exon = new Exon(gtf.getAttributes().get("exon_id"), gtf.getSequenceName().replaceFirst("chr", ""),
+//						gtf.getStart(), gtf.getEnd(), gtf.getStrand(), 0, 0, 0, 0, 0, 0, -1, Integer.parseInt(gtf
+//								.getAttributes().get("exon_number")), exonSequence);
 				exon = new Exon(gtf.getAttributes().get("exon_id"), gtf.getSequenceName().replaceFirst("chr", ""),
 						gtf.getStart(), gtf.getEnd(), gtf.getStrand(), 0, 0, 0, 0, 0, 0, -1, Integer.parseInt(gtf
-								.getAttributes().get("exon_number")), exonSequence);
+								.getAttributes().get("exon_number")));
 				transcript.getExons().add(exon);
 				exonDict.put(transcript.getId() + "_" + exon.getExonNumber(), exon);
 				if (gtf.getAttributes().get("exon_number").equals("1")) {
@@ -604,8 +599,9 @@ public class GeneParser {
 			if (feature.equalsIgnoreCase("gene")) {
 
 				name = group[1].split("=")[1];
-				Gene g = new Gene(id, name, "", "", chromosome, start, end, strand, "JGI", "",
-						new ArrayList<Transcript>(), null);
+//				Gene g = new Gene(id, name, "", "", chromosome, start, end, strand, "JGI", "",
+//						new ArrayList<Transcript>(), null);
+				Gene g = new Gene(id, name, "", "", chromosome, start, end, strand, "JGI", "", new ArrayList<Transcript>());
 				// g.setTranscripts(new ArrayList<Transcript>());
 				// g.setId(id);
 				// g.setBiotype("");

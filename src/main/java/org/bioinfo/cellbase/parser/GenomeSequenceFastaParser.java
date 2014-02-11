@@ -2,23 +2,18 @@ package org.bioinfo.cellbase.parser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.GZIPInputStream;
 import org.bioinfo.cellbase.lib.common.core.Chromosome;
 import org.bioinfo.cellbase.lib.common.core.Cytoband;
 import org.bioinfo.cellbase.lib.common.core.GenomeSequenceChunk;
 import org.bioinfo.cellbase.lib.common.core.InfoStats;
-
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
 public class GenomeSequenceFastaParser {
 
